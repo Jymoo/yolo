@@ -30,6 +30,7 @@ services:
       - ./client:/app
     stdin_open: true
     tty: true
+    image: backend-image:v1.0.0
 
 
   mongodb:
