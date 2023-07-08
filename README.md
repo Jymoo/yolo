@@ -102,6 +102,26 @@ or 'docker-compose down' to remove the running containers
 
 
 
+#Git tracking
+git log --oneline
+d6e5a91 (HEAD -> master, origin/master, origin/HEAD) updated the readme
+90e0bf3 modified frontend emage tagging name
+010b044 verified Network conectivity between containers and added file structure steps in readme
+ea217bb Verified image size and also eddited readme to add steps for docker file in the backend and frondent
+653f42e added mongo db description to readme
+b79ec71 implemented mongodb connection url in the serves.js to link mongo to my backend successfully
+0c9e15a Formated intent and Added comments to explain the docker compose file
+00057d7 implemented image versioning in frondent client
+bf601ec implemented image versioning in backend
+b554e0e implemented bridge custom network to link the containers and their volumes
+61e0167 added Docker file in the client app frontend
+83ceb3b added Docker file in the Backend app
+2fce89b made some instructional changes
+9e6eaea added the instructions to run the app for DevOps IP
+:...skipping...
+
+
+
 
 
 
