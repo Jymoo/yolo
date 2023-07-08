@@ -30,6 +30,16 @@ Make sure that you have the following installed:
  'add mongo connection url'
   mongodb+srv://mongo:<password>@cluster0.kj5ejm.mongodb.net/?retryWrites=true&w=majority
 
+## add a docker compose file to fire up all the services  it should be in the root directory
+
+
+## File structure should be 
+.
+├── backend
+│   └── Dockerfile
+├── client
+│   └── Dockerfile
+└── docker-compose.yml
 
 ## running Docker compose 
 docker-compose up --build

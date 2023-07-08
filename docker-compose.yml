@@ -48,7 +48,7 @@ services:
 
 # Network 
 networks:
-  my-network:
+  my-network:     #my custom network
     driver: bridge
 
 # Specify volume 
