@@ -13,6 +13,6 @@ RUN npm install --silent
 # Copy the remaining backend files
 COPY . .
 
-EXPOSE 5000
+EXPOSE 3000
 # Start the app
 CMD ["npm", "start"]
