@@ -20,11 +20,17 @@ Make sure that you have the following installed:
 
  `npm start`
 
+  ### Go ahead a nd add a product (note that the price field only takes a numeric input)
+
+## Add a docker file in the backend and frondend
+
  ## Link mongo do to the app using mongo credentials
  'npm install mongodb'
 
  'add mongo connection url'
   mongodb+srv://mongo:<password>@cluster0.kj5ejm.mongodb.net/?retryWrites=true&w=majority
-  
 
- ### Go ahead a nd add a product (note that the price field only takes a numeric input)
+
+## running Docker compose 
+docker-compose up --build
+

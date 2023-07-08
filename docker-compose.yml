@@ -55,4 +55,13 @@ networks:
 volumes:
   mongodb_data:
 
+# Verify image sizes:
+#
+# To check the size of the built images, run the following command in the terminal:
+#
+#     docker images
+#
+# This will display a list of all Docker images on your system, including their sizes.
+# Verify the sizes of the backend-image and frontend-image to ensure they meet your requirements.
+
     
