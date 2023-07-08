@@ -20,12 +20,12 @@ Make sure that you have the following installed:
 
  `npm start`
 
-  ### Go ahead a nd add a product (note that the price field only takes a numeric input)
+### Go ahead a nd add a product (note that the price field only takes a numeric input)
 
 ## Add a docker file in the backend and frondend
 
  ## Link mongo do to the app using mongo credentials
- 'npm install mongodb'
+ 'npm install mongodb' if necesary
 
  'add mongo connection url'
   mongodb+srv://mongo:<password>@cluster0.kj5ejm.mongodb.net/?retryWrites=true&w=majority
@@ -41,6 +41,69 @@ Make sure that you have the following installed:
 │   └── Dockerfile
 └── docker-compose.yml
 
+
+## Puhing to dockerhub
+RUN 'docker-compose build'
+RUN 'docker-compose push'
+
+
+## To pull the images go to where your compose file is and run 
+
+docker-compose pull
+Results 
+[+] Running 3/3
+ ✔ frontend Pulled                                                         3.6s 
+ ✔ mongodb Pulled                                                          2.7s 
+ ✔ backend Pulled                                                 
+
+or pull one by one manually from dockerhub (not recomented in this IP)
+
+docker pull jymo/backend-image:v1.0.0
+docker pull jymo/frontend-image:v1.0.0
+<!-- mongo is not locally built -->
+RUN 'docker pull mongo' 
+
 ## running Docker compose 
-docker-compose up --build
+RUN 'docker-compose up' 
+
+
+Compiled successfully!
+yolo-frontend-1  | 
+yolo-frontend-1  | You can now view yolo_app in the browser.
+yolo-frontend-1  | 
+yolo-frontend-1  |   Local:            http://localhost:3000
+yolo-frontend-1  |   On Your Network:  http://192.168.112.3:3000
+yolo-frontend-1  | 
+yolo-frontend-1  | Note that the development build is not optimized.
+yolo-frontend-1  | To create a production build, use npm run build.
+
+
+Access the site via  http://localhost:3000 or On Your Network: in port 3000
+
+Open another terminal
+RUN 'docker ps' to view running containers
+RUN 'docker container inspect ' to view running containers information ie network, volume etc
+RUN 'docker-compose stop' to stop the containers 
+
+  docker-compose stop
+[+] Running 3/0
+ ✔ Container yolotest-frontend-1  Stopped   0.0s 
+ ✔ Container yolotest-backend-1   Stopped   0.0s 
+ ✔ Container yolotest-mongodb-1   Stopped
+
+or 'docker-compose down' to remove the running containers
+
+ docker-compose down
+[+] Running 4/4
+ ✔ Container yolotest-frontend-1  Removed    0.0s 
+ ✔ Container yolotest-backend-1   Removed    0.0s 
+ ✔ Container yolotest-mongodb-1   Removed    0.0s 
+ ✔ Network yolotest_my-network    Removed 
+
+
+
+
+
+
+
 
