@@ -18,7 +18,7 @@ services:
       - ./backend:/app
     stdin_open: true
     tty: true
-    image: backend-image:v1.0.0
+    image: jymo/backend-image:v1.0.0
 
 # Frontend services to run
   frontend:
@@ -33,7 +33,7 @@ services:
       - ./client:/app
     stdin_open: true
     tty: true
-    image: backend-image:v1.0.0
+    image: jymo/frontend-image:v1.0.0
 
 
 # Mongodb services to run
@@ -55,7 +55,7 @@ networks:
 volumes:
   mongodb_data:
 
-# Verify image sizes:
+# Verifying image sizes:
 #
 # To check the size of the built images, run the following command in the terminal:
 #
