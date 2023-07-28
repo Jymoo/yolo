@@ -1,2 +1,51 @@
 ---
 # tasks file for ansible-automation
+- name: Install Docker and required Python packages
+  yum:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - docker
+    - python3-pip  # Install Python 3 pip package
+  become: true
+
+- name: Start and enable Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  become: true
+
+
+- name: install python dependencies
+  become: true
+  yum:
+    name: python3-pip
+    state: latest
+
+- name: Install 'Docker SDK for Python' using pip
+  pip:
+    name: docker-compose
+    state: present
+    executable: pip3  # Use pip3 executable for Python 3
+  #become: true
+
+
+- name: Copy Docker Compose file to the VM
+  copy:
+    src: docker-compose.yml
+    dest: /home/vagrant/YoloApp/docker-compose.yml
+  become: true
+
+- name: Deploy Docker Compose stack
+  docker_compose:
+    project_src: /home/vagrant/YoloApp/
+    project_name: YoloApp
+    state: present
+  become: true
+
+- name: Run Docker Compose
+  command: docker-compose up -d
+  args:
+    chdir: /home/vagrant/YoloApp/  # Adjusted path to the directory where docker-compose.yml is located
+  become: true
