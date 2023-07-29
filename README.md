@@ -132,7 +132,78 @@ https://drive.google.com/file/d/1BXDPvSDTIGwB7ElxmhVyjZwiSiY3IGmi/view?usp=drive
 
 
 
+### ANSIBLE AUTOMATION
+add a vagrant vm 
+configure vagrant file to specify ansible playbook location
+implement ansible tasks using ansible galaxy init
+run vagrant provision
+
+sudo vagrant provision
+==> default: Running provisioner: ansible...
+    default: Running ansible-playbook...
+
+PLAY [sample playbook] *********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [default]
+
+TASK [ansible-automation : Install 'Docker SDK for Python' using pip] **********
+ok: [default]
+
+TASK [ansible-automation : Update pip] *****************************************
+changed: [default]
+
+TASK [ansible-automation : Install 'setuptools_rust' package] ******************
+changed: [default]
+
+TASK [ansible-automation : Retry installing 'Docker SDK for Python' (docker-compose)] ***
+changed: [default]
+
+TASK [ansible-automation : Add Docker official repository] *********************
+ok: [default]
+
+TASK [ansible-automation : Install Docker packages] ****************************
+ok: [default] => (item=docker-ce)
+ok: [default] => (item=docker-ce-cli)
+ok: [default] => (item=containerd.io)
+
+TASK [ansible-automation : Start Docker service] *******************************
+ok: [default]
+
+TASK [ansible-automation : Add current user to docker group] *******************
+ok: [default]
+
+TASK [ansible-automation : Copy Docker Compose file to the VM] *****************
+ok: [default]
+
+TASK [ansible-automation : Ensure correct permissions for Docker Compose file] ***
+ok: [default]
+
+TASK [ansible-automation : Run Docker Compose pull] ****************************
+changed: [default]
+
+TASK [ansible-automation : Run Docker Compose] *********************************
+changed: [default]
+
+PLAY RECAP *********************************************************************
+default                    : ok=13   changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
 
+
+
+
+
+### pulled images in vagrant machine
+[vagrant@centos7 YoloApp]$ docker images
+REPOSITORY            TAG       IMAGE ID       CREATED       SIZE
+mongo                 latest    fb5fba25b25a   2 weeks ago   654MB
+jymo/frontend-image   v1.0.0    458f9a8f7545   3 weeks ago   572MB
+jymo/backend-image    v1.0.0    4e5ee7bade35   3 weeks ago   191MB
+
+[vagrant@centos7 YoloApp]$ docker ps
+CONTAINER ID   IMAGE                       COMMAND                  CREATED          STATUS          PORTS                      NAMES
+d5d71607b20a   jymo/backend-image:v1.0.0   "docker-entrypoint.s…"   14 seconds ago   Up 13 seconds   5000/tcp                   nervous_lederberg
+2e50da1579d2   mongo:latest                "docker-entrypoint.s…"   2 hours ago      Up 29 minutes   0.0.0.0:27017->27017/tcp   yoloapp-mongodb-1
+c7l71sf7b21n   jymo/frontend-image:v1.0.0   "docker-entrypoint.s…"   14 seconds ago   Up 15 seconds   3000/tcp                  frontend-new-1
 
 
