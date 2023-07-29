@@ -77,6 +77,34 @@
     chdir: /home/vagrant/YoloApp/
   become: true
 
+- name: Install pip (if not already installed)
+  ansible.builtin.package:
+    name: python3-pip
+    state: present
+  become: true
+
+
+- name: Run Docker Compose log
+  ansible.builtin.shell: |
+    docker compose -f /home/vagrant/YoloApp/docker-compose.yml up -d > /home/vagrant/YoloApp/docker_compose.log 2>&1
+  args:
+    _uses_shell: true
+  become: true
+
+
+
+# - name: Run Docker Provisioning and Docker Compose
+#   ansible.builtin.shell: |
+#     ansible-playbook -i inventory.yml
+#                       -u root
+#                       -c docker
+#                       --ssh-common-args="-o StrictHostKeyChecking=no"
+#                       playbook.yml
+#     docker compose up -d
+#   args:
+#     chdir: /home/vagrant/YoloApp/
+#   become: true
+
 
 
 
