@@ -55,26 +55,26 @@
 - name: Copy Docker Compose file to the VM
   copy:
     src: docker-compose.yml
-    dest: /home/vagrant/YoloApp/docker-compose.yml
+    dest: "{{ compose_file }}docker-compose.yml"
   become: true
 
 - name: Ensure correct permissions for Docker Compose file
   file:
-    path: /home/vagrant/YoloApp/docker-compose.yml
+    path: "{{ compose_file }}docker-compose.yml"
     mode: "0644"
     owner: vagrant
     group: vagrant
   become: true
 
 - name: Run Docker Compose pull
-  command: /usr/local/bin/docker-compose -f /home/vagrant/YoloApp/docker-compose.yml pull -d
+  command: /usr/local/bin/docker-compose -f "{{ compose_file }}docker-compose.yml" pull -d
   become: true
 
 
 - name: Run Docker Compose
   command: docker compose up -d 
   args:
-    chdir: /home/vagrant/YoloApp/
+    chdir: "{{ compose_file }}"
   become: true
 
 - name: Install pip (if not already installed)
@@ -86,24 +86,13 @@
 
 - name: Run Docker Compose log
   ansible.builtin.shell: |
-    docker compose -f /home/vagrant/YoloApp/docker-compose.yml up -d > /home/vagrant/YoloApp/docker_compose.log 2>&1
+    docker compose -f "{{ compose_file }}docker-compose.yml" up -d > "{{ compose_file }}docker_compose.log" 2>&1
   args:
     _uses_shell: true
   become: true
 
 
 
-# - name: Run Docker Provisioning and Docker Compose
-#   ansible.builtin.shell: |
-#     ansible-playbook -i inventory.yml
-#                       -u root
-#                       -c docker
-#                       --ssh-common-args="-o StrictHostKeyChecking=no"
-#                       playbook.yml
-#     docker compose up -d
-#   args:
-#     chdir: /home/vagrant/YoloApp/
-#   become: true
 
 
 

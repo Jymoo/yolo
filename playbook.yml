@@ -2,19 +2,14 @@
 - name: sample playbook
   hosts: all
   become: yes
-  # vars:
-  #   compose_file: /home/vagrant/YoloApp/
-  # vars:
-  #     ansible_python_interpreter: /usr/bin/python3  # Specify Python 3 interpreter path
-
+  vars:
+    compose_file:
+    docker_logs:
+ 
   roles:
     - ansible-automation
 
-  # tasks:
-  # - name: install apache
-  #   yum:
-  #     name: ntp
-  #     state: latest
+  
 
 
 
