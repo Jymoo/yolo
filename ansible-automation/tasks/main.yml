@@ -1,35 +1,56 @@
 ---
-# tasks file for ansible-automation
-- name: Install Docker and required Python packages
-  yum:
-    name: "{{ item }}"
-    state: latest
-  loop:
-    - docker
-    - python3-pip  # Install Python 3 pip package
+- name: Install 'Docker SDK for Python' using pip
+  pip:
+    name: docker
+    state: present
+    executable: pip3  # Use pip3 executable for Python 3
   become: true
 
-- name: Start and enable Docker service
+- name: Update pip
+  raw: pip3 install --upgrade pip
+  become: true
+
+- name: Install 'setuptools_rust' package
+  raw: pip3 install setuptools_rust
+  become: true
+
+- name: Retry installing 'Docker SDK for Python' (docker-compose)
+  raw: pip3 install docker-compose
+  become: true
+
+- name: Add Docker official repository
+  yum_repository:
+    name: docker-ce
+    description: Docker CE Repository
+    baseurl: https://download.docker.com/linux/centos/7/x86_64/stable
+    gpgcheck: yes
+    gpgkey: https://download.docker.com/linux/centos/gpg
+    state: present
+  become: true
+
+- name: Install Docker packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+  become: true
+
+- name: Start Docker service
   service:
     name: docker
     state: started
     enabled: yes
   become: true
 
-
-- name: install python dependencies
+- name: Add current user to docker group
+  user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: yes
   become: true
-  yum:
-    name: python3-pip
-    state: latest
-
-- name: Install 'Docker SDK for Python' using pip
-  pip:
-    name: docker-compose
-    state: present
-    executable: pip3  # Use pip3 executable for Python 3
-  #become: true
-
 
 - name: Copy Docker Compose file to the VM
   copy:
@@ -37,15 +58,35 @@
     dest: /home/vagrant/YoloApp/docker-compose.yml
   become: true
 
-- name: Deploy Docker Compose stack
-  docker_compose:
-    project_src: /home/vagrant/YoloApp/
-    project_name: YoloApp
-    state: present
+- name: Ensure correct permissions for Docker Compose file
+  file:
+    path: /home/vagrant/YoloApp/docker-compose.yml
+    mode: "0644"
+    owner: vagrant
+    group: vagrant
   become: true
 
-- name: Run Docker Compose
-  command: docker-compose up -d
-  args:
-    chdir: /home/vagrant/YoloApp/  # Adjusted path to the directory where docker-compose.yml is located
+- name: Run Docker Compose pull
+  command: /usr/local/bin/docker-compose -f /home/vagrant/YoloApp/docker-compose.yml pull -d
   become: true
+
+
+- name: Run Docker Compose
+  command: docker compose up 
+  args:
+    chdir: /home/vagrant/YoloApp/
+  become: true
+
+
+
+
+
+
+
+
+
+
+
+
+
+

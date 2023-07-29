@@ -1,4 +1,4 @@
 [webservers]
- home.com ansible_host=192.168.121.121 ansible_port=2222
+ home.com ansible_host=192.168.121.26 ansible_port=2222
  
 
