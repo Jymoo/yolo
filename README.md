@@ -138,6 +138,7 @@ configure vagrant file to specify ansible playbook location
 implement ansible tasks using ansible galaxy init
 run vagrant provision
 
+## Run the file using  vagrant provision
 sudo vagrant provision
 ==> default: Running provisioner: ansible...
     default: Running ansible-playbook...

@@ -6,6 +6,7 @@
     executable: pip3  # Use pip3 executable for Python 3
   become: true
 
+#install python
 - name: Update pip
   raw: pip3 install --upgrade pip
   become: true
@@ -14,10 +15,12 @@
   raw: pip3 install setuptools_rust
   become: true
 
+#adding docker compose dependancies from pip
 - name: Retry installing 'Docker SDK for Python' (docker-compose)
   raw: pip3 install docker-compose
   become: true
 
+#add docker repo
 - name: Add Docker official repository
   yum_repository:
     name: docker-ce
@@ -28,6 +31,7 @@
     state: present
   become: true
 
+#install docker
 - name: Install Docker packages
   yum:
     name: "{{ item }}"
@@ -38,6 +42,7 @@
     - containerd.io
   become: true
 
+#start docker
 - name: Start Docker service
   service:
     name: docker
@@ -45,6 +50,7 @@
     enabled: yes
   become: true
 
+#add docker to docker group 
 - name: Add current user to docker group
   user:
     name: "{{ ansible_user }}"
@@ -52,12 +58,14 @@
     append: yes
   become: true
 
+#copy docker compose to vm
 - name: Copy Docker Compose file to the VM
   copy:
     src: docker-compose.yml
     dest: "{{ compose_file }}docker-compose.yml"
   become: true
 
+#add permissions to the Compose file
 - name: Ensure correct permissions for Docker Compose file
   file:
     path: "{{ compose_file }}docker-compose.yml"
@@ -66,30 +74,33 @@
     group: vagrant
   become: true
 
+#run docker compose pull in the vm
 - name: Run Docker Compose pull
   command: /usr/local/bin/docker-compose -f "{{ compose_file }}docker-compose.yml" pull -d
   become: true
 
-
-- name: Run Docker Compose
-  command: docker compose up -d 
+#run docker compose up to start services in the vm
+- name: Deploy Docker Compose
+  command: docker compose up -d
   args:
     chdir: "{{ compose_file }}"
   become: true
 
-- name: Install pip (if not already installed)
-  ansible.builtin.package:
-    name: python3-pip
-    state: present
-  become: true
+# - name: Install pip (if not already installed)
+#   ansible.builtin.package:
+#     name: python3-pip
+#     state: present
+#   become: true
 
 
-- name: Run Docker Compose log
-  ansible.builtin.shell: |
-    docker compose -f "{{ compose_file }}docker-compose.yml" up -d > "{{ compose_file }}docker_compose.log" 2>&1
-  args:
-    _uses_shell: true
-  become: true
+# - name: Run Docker Compose log
+#   ansible.builtin.shell: |
+#     docker compose -f "{{ compose_file }}docker-compose.yml" up -d > "{{ compose_file }}docker_compose.log" 2>&1
+#   args:
+#     _uses_shell: true
+#   become: true
+
+
 
 
 

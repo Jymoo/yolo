@@ -15,7 +15,7 @@ services:
     networks:
       - my-network
     volumes:
-      - ./backend:/app
+      - ./backend:/home/vagrant/YoloApp/backend
     stdin_open: true
     tty: true
     image: jymo/backend-image:v1.0.0
@@ -30,7 +30,7 @@ services:
     networks:
       - my-network
     volumes:
-      - ./client:/app
+      - ./client:/home/vagrant/YoloApp/client
     stdin_open: true
     tty: true
     image: jymo/frontend-image:v1.0.0
