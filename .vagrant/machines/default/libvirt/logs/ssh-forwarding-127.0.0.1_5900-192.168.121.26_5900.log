@@ -1,0 +1,4 @@
+Warning: Permanently added '192.168.121.26' (RSA) to the list of known hosts.
+bind [127.0.0.1]:5900: Address already in use
+channel_setup_fwd_listener_tcpip: cannot listen to port: 5900
+Could not request local forwarding.
