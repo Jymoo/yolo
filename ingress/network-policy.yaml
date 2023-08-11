@@ -1,9 +1,28 @@
+# apiVersion: networking.k8s.io/v1
+# kind: NetworkPolicy
+# metadata:
+#   name: allow-same-namespace
+# spec:
+#   podSelector: {}
+#   ingress:
+#   - from:
+#     - podSelector: {}
+
+
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-same-namespace
 spec:
-  podSelector: {}
+  podSelector:
+    matchLabels:
+      app: frontend-deployment
   ingress:
   - from:
-    - podSelector: {}
+    - podSelector:
+        matchLabels:
+          app: backend-deployment
+  - from:
+    - podSelector:
+        matchLabels:
+          app: mongodb-deployment
