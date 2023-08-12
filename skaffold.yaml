@@ -1,0 +1,18 @@
+apiVersion: skaffold/v4beta6
+kind: Config
+metadata:
+  name: yolo
+build:
+  artifacts:
+  - image: gcr.io/enhanced-rite-393916/jymo/backend-image
+    context: backend
+    docker: {}
+  - image: gcr.io/enhanced-rite-393916/jymo/frontend-image
+    context: client
+    docker: {}
+manifests:
+  rawYaml:
+  - manifest/backend-deployment.yaml
+  - manifest/frontend-deployment.yaml
+  - manifest/mongodb-deployment.yaml
+  - manifest/network-policy.yaml

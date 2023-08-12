@@ -1,0 +1,34 @@
+# apiVersion: networking.k8s.io/v1
+# kind: NetworkPolicy
+# metadata:
+#   name: allow-same-namespace
+# spec:
+#   podSelector: {}
+#   ingress:
+#   - from:
+#     - podSelector: {}
+
+
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-same-namespace
+  # namespace: devops-project
+  # Set up CORS annotations here
+  annotations:
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+spec:
+  podSelector:
+    matchLabels:
+      app: frontend-deployment
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: backend-deployment
+  - from:
+    - podSelector:
+        matchLabels:
+          app: mongodb-deployment
+

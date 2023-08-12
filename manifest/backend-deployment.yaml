@@ -1,0 +1,53 @@
+## Backend Deployment: backend-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  # namespace: devops-project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+
+  template:
+    metadata:
+      labels:
+        app: backend
+
+    spec:
+      containers:
+      - name: backend
+        # image: jymo/backend-image:v1.0.0
+        image: gcr.io/enhanced-rite-393916/jymo/backend-image:v1.0.0
+        ports:
+        - containerPort: 5000
+          # #resouurces specification for backend 
+          # resources:
+          #   limits:
+          #     cpu: "0.5"
+          #     memory: "100Mi"
+
+#        volumeMounts:
+#        - name: backend-volume
+#          mountPath: /app #/home/vagrant/YoloApp/backend
+#
+#      volumes:
+#      - name: backend-volume
+#        hostPath:
+#          path: /home/james/MyWork/MORINGA/IP/week4_IP/yolo/backend
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: backend
+  ports:
+  - protocol: TCP
+    port: 5000
+    targetPort: 5000
+  type: LoadBalancer
+
