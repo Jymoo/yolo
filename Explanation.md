@@ -31,7 +31,7 @@ minikube ip: get the ip of the node
 kubectl get svc: list the services with port running
 
 ## when sure that all is well 
-Edit the manifest yamls to use service to communicate other than IPs
+Edit the manifest yamls to use service to communicate 
 
 ## Create GCR to push the images to gloud
 
@@ -79,12 +79,14 @@ Access Application:
 
 Once  deployments are up and running, access application using the external IP or domain name associated with your GKE LoadBalancer or Ingress.
 
+
 ### ''' 
 use link below to access frondend
+
 http://35.225.47.7/
 
 '''
 
-## [optional] add skaffold to compine all the manifest files, run and deploy to GCK
+## [optional] implement CICD By adding skaffold to compine all the manifest files, run and deploy to GCK
 run the skafffold using 
 skaffold run
